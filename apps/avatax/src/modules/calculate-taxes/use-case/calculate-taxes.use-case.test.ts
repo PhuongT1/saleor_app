@@ -4,6 +4,8 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { BaseError } from "../../../error";
 import { AppConfig } from "../../../lib/app-config";
 import { AppConfigExtractor, IAppConfigExtractor } from "../../../lib/app-config-extractor";
+import { PublicLog } from "../../public-log-drain/public-events";
+import { PublicLogDrainService } from "../../public-log-drain/public-log-drain.service";
 import { AvataxWebhookServiceFactory } from "../../taxes/avatax-webhook-service-factory";
 import { CalculateTaxesPayload } from "../../webhooks/payloads/calculate-taxes-payload";
 import { CalculateTaxesUseCase } from "./calculate-taxes.use-case";
@@ -113,6 +115,16 @@ const getMockedAppConfig = (): AppConfig => {
           isAutocommit: false,
           isDocumentRecordingEnabled: false,
           shippingTaxCode: "123",
+          logsSettings: {
+            otel: {
+              url: "https://otel.example.com",
+              headers: "Authorization",
+            },
+            json: {
+              url: "https://http.example.com",
+              headers: "Authorization",
+            },
+          },
         },
       },
     ],
@@ -127,6 +139,11 @@ describe("CalculateTaxesUseCase", () => {
 
     instance = new CalculateTaxesUseCase({
       configExtractor: MockConfigExtractor,
+      publicLogDrain: new PublicLogDrainService([
+        {
+          async emit(log: PublicLog): Promise<void> {},
+        },
+      ]),
     });
   });
 

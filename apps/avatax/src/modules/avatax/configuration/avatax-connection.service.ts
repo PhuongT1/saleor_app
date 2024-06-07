@@ -78,6 +78,10 @@ export class AvataxConnectionService {
         ...prevConfig.address,
         ...nextConfigPartial.address,
       },
+      logsSettings: {
+        ...prevConfig.logsSettings,
+        ...nextConfigPartial.logsSettings,
+      },
     };
 
     await this.checkIfAuthorized(input);

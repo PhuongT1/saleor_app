@@ -18,6 +18,10 @@ const defaultAvataxConfig: AvataxConfig = {
     password: "password",
     username: "username",
   },
+  logsSettings: {
+    otel: {},
+    json: {},
+  },
 };
 
 const testingScenariosMap = {

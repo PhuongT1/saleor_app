@@ -29,6 +29,18 @@ export const avataxConfigSchema = z
     shippingTaxCode: z.string().optional(),
     isDocumentRecordingEnabled: z.boolean().default(true),
     address: addressSchema,
+    logsSettings: z.object({
+      otel: z.object({
+        enabled: z.boolean().optional(),
+        url: z.string().optional(),
+        headers: z.string().optional(),
+      }),
+      json: z.object({
+        enabled: z.boolean().optional(),
+        url: z.string().optional(),
+        headers: z.string().optional(),
+      }),
+    }),
   })
   .merge(baseAvataxConfigSchema);
 
@@ -51,6 +63,18 @@ export const defaultAvataxConfig: AvataxConfig = {
     state: "",
     street: "",
     zip: "",
+  },
+  logsSettings: {
+    otel: {
+      enabled: false,
+      url: "",
+      headers: "",
+    },
+    json: {
+      enabled: false,
+      url: "",
+      headers: "",
+    },
   },
 };
 
