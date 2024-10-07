@@ -69,6 +69,12 @@ export const EventForm = ({ configuration, eventType }: EventFormProps) => {
     },
   });
 
+  const formSubmitHandler = (data: SmtpUpdateEvent) => {
+    mutate({
+      ...data,
+    });
+  };
+
   const [lastValidRenderedTemplate, setLastValidRenderedTemplate] = useState("");
 
   const [lastValidRenderedSubject, setLastValidRenderedSubject] = useState("");
@@ -98,13 +104,7 @@ export const EventForm = ({ configuration, eventType }: EventFormProps) => {
   }, [debouncedPayload, debouncedSubject, debouncedTemplate, fetchTemplatePreview]);
 
   return (
-    <form
-      onSubmit={handleSubmit((data, event) => {
-        mutate({
-          ...data,
-        });
-      })}
-    >
+    <form onSubmit={handleSubmit(formSubmitHandler)}>
       <Box display="flex" flexDirection="column" gap={defaultPadding}>
         <Box display="flex" justifyContent="space-between">
           <Text size={10} fontWeight="bold">

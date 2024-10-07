@@ -43,6 +43,13 @@ const NotFoundView = () => {
 const EditSmtpEventPage: NextPage = () => {
   const { notifyError } = useDashboardNotification();
   const router = useRouter();
+  // const [showTemplateSizeError, setShowTemplateSizeError] = useState(false);
+
+  /*
+   * const handleShowTemplateSizeError = () => {
+   *   setShowTemplateSizeError(true);
+   * };
+   */
 
   const configurationId = router.query.configurationId as string;
   const eventTypeFromQuery = router.query.eventType as string | undefined;
@@ -103,6 +110,25 @@ const EditSmtpEventPage: NextPage = () => {
           </TextLink>{" "}
           is supported
         </Text>
+
+        {/*   {showTemplateSizeError && (
+          <Box
+            display="flex"
+            alignItems="center"
+            backgroundColor="warning1"
+            padding={3}
+            gap={1}
+            borderRadius={3}
+            marginTop={1}
+            marginBottom={1}
+          >
+            <WarningIcon size="medium" color="warning1" />
+            <Text size={3}>
+              You template exceeded max template size, reduce your markup to avoid issues.
+            </Text>
+          </Box>
+        )}*/}
+
         <EventForm configuration={configuration} eventType={eventType} />
       </Box>
     </BasicLayout>
